@@ -24,11 +24,11 @@ const { GraphQLJSONObject } = require('graphql-type-json');
 import { BaseWhereInput, JsonObject, PaginationArgs, DateOnlyString, DateTimeString, BigInt, Bytes } from '@subsquid/warthog';
 
 // @ts-ignore
-import { HistoricalBalance } from "../modules/historical-balance/historical-balance.model";
+import { Heartbeat } from "../modules/heartbeat/heartbeat.model";
 // @ts-ignore
-import { Account } from "../modules/account/account.model";
+import { LastHeartbeat } from "../modules/last-heartbeat/last-heartbeat.model";
 
-export enum HistoricalBalanceOrderByEnum {
+export enum HeartbeatOrderByEnum {
   createdAt_ASC = "createdAt_ASC",
   createdAt_DESC = "createdAt_DESC",
 
@@ -38,22 +38,34 @@ export enum HistoricalBalanceOrderByEnum {
   deletedAt_ASC = "deletedAt_ASC",
   deletedAt_DESC = "deletedAt_DESC",
 
-  account_ASC = "account_ASC",
-  account_DESC = "account_DESC",
+  blockNumber_ASC = "blockNumber_ASC",
+  blockNumber_DESC = "blockNumber_DESC",
 
-  balance_ASC = "balance_ASC",
-  balance_DESC = "balance_DESC",
+  authorityId_ASC = "authorityId_ASC",
+  authorityId_DESC = "authorityId_DESC",
 
-  timestamp_ASC = "timestamp_ASC",
-  timestamp_DESC = "timestamp_DESC",
+  validator_ASC = "validator_ASC",
+  validator_DESC = "validator_DESC",
+
+  peerId_ASC = "peerId_ASC",
+  peerId_DESC = "peerId_DESC",
+
+  networkAddress_ASC = "networkAddress_ASC",
+  networkAddress_DESC = "networkAddress_DESC",
+
+  multiAddress_ASC = "multiAddress_ASC",
+  multiAddress_DESC = "multiAddress_DESC",
+
+  ipv4_ASC = "ipv4_ASC",
+  ipv4_DESC = "ipv4_DESC",
 }
 
-registerEnumType(HistoricalBalanceOrderByEnum, {
-  name: "HistoricalBalanceOrderByInput",
+registerEnumType(HeartbeatOrderByEnum, {
+  name: "HeartbeatOrderByInput",
 });
 
 @TypeGraphQLInputType()
-export class HistoricalBalanceWhereInput {
+export class HeartbeatWhereInput {
   @TypeGraphQLField(() => ID, { nullable: true })
   id_eq?: string;
 
@@ -127,287 +139,335 @@ export class HistoricalBalanceWhereInput {
   deletedById_in?: string[];
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_eq?: string;
+  blockNumber_eq?: string;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gt?: string;
+  blockNumber_gt?: string;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gte?: string;
+  blockNumber_gte?: string;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lt?: string;
+  blockNumber_lt?: string;
 
   @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lte?: string;
+  blockNumber_lte?: string;
 
   @TypeGraphQLField(() => [BigInt], { nullable: true })
-  balance_in?: string[];
-
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_eq?: string;
-
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_gt?: string;
-
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_gte?: string;
-
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_lt?: string;
-
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  timestamp_lte?: string;
-
-  @TypeGraphQLField(() => [BigInt], { nullable: true })
-  timestamp_in?: string[];
-
-  @TypeGraphQLField(() => AccountWhereInput, { nullable: true })
-  account?: AccountWhereInput;
-
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  AND?: [HistoricalBalanceWhereInput];
-
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  OR?: [HistoricalBalanceWhereInput];
-}
-
-@TypeGraphQLInputType()
-export class HistoricalBalanceWhereUniqueInput {
-  @TypeGraphQLField(() => ID)
-  id?: string;
-}
-
-@TypeGraphQLInputType()
-export class HistoricalBalanceCreateInput {
-  @TypeGraphQLField(() => ID)
-  account!: string;
-
-  @TypeGraphQLField()
-  balance!: string;
-
-  @TypeGraphQLField()
-  timestamp!: string;
-}
-
-@TypeGraphQLInputType()
-export class HistoricalBalanceUpdateInput {
-  @TypeGraphQLField(() => ID, { nullable: true })
-  account?: string;
+  blockNumber_in?: string[];
 
   @TypeGraphQLField({ nullable: true })
-  balance?: string;
+  authorityId_eq?: string;
 
   @TypeGraphQLField({ nullable: true })
-  timestamp?: string;
-}
-
-@ArgsType()
-export class HistoricalBalanceWhereArgs extends PaginationArgs {
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  where?: HistoricalBalanceWhereInput;
-
-  @TypeGraphQLField(() => HistoricalBalanceOrderByEnum, { nullable: true })
-  orderBy?: HistoricalBalanceOrderByEnum[];
-}
-
-@ArgsType()
-export class HistoricalBalanceCreateManyArgs {
-  @TypeGraphQLField(() => [HistoricalBalanceCreateInput])
-  data!: HistoricalBalanceCreateInput[];
-}
-
-@ArgsType()
-export class HistoricalBalanceUpdateArgs {
-  @TypeGraphQLField() data!: HistoricalBalanceUpdateInput;
-  @TypeGraphQLField() where!: HistoricalBalanceWhereUniqueInput;
-}
-
-export enum AccountOrderByEnum {
-  createdAt_ASC = "createdAt_ASC",
-  createdAt_DESC = "createdAt_DESC",
-
-  updatedAt_ASC = "updatedAt_ASC",
-  updatedAt_DESC = "updatedAt_DESC",
-
-  deletedAt_ASC = "deletedAt_ASC",
-  deletedAt_DESC = "deletedAt_DESC",
-
-  wallet_ASC = "wallet_ASC",
-  wallet_DESC = "wallet_DESC",
-
-  balance_ASC = "balance_ASC",
-  balance_DESC = "balance_DESC",
-}
-
-registerEnumType(AccountOrderByEnum, {
-  name: "AccountOrderByInput",
-});
-
-@TypeGraphQLInputType()
-export class AccountWhereInput {
-  @TypeGraphQLField(() => ID, { nullable: true })
-  id_eq?: string;
-
-  @TypeGraphQLField(() => [ID], { nullable: true })
-  id_in?: string[];
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  createdAt_eq?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  createdAt_lt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  createdAt_lte?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  createdAt_gt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  createdAt_gte?: Date;
-
-  @TypeGraphQLField(() => ID, { nullable: true })
-  createdById_eq?: string;
-
-  @TypeGraphQLField(() => [ID], { nullable: true })
-  createdById_in?: string[];
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  updatedAt_eq?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  updatedAt_lt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  updatedAt_lte?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  updatedAt_gt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  updatedAt_gte?: Date;
-
-  @TypeGraphQLField(() => ID, { nullable: true })
-  updatedById_eq?: string;
-
-  @TypeGraphQLField(() => [ID], { nullable: true })
-  updatedById_in?: string[];
+  authorityId_contains?: string;
 
   @TypeGraphQLField({ nullable: true })
-  deletedAt_all?: Boolean;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  deletedAt_eq?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  deletedAt_lt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  deletedAt_lte?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  deletedAt_gt?: Date;
-
-  @TypeGraphQLField(() => DateTime, { nullable: true })
-  deletedAt_gte?: Date;
-
-  @TypeGraphQLField(() => ID, { nullable: true })
-  deletedById_eq?: string;
-
-  @TypeGraphQLField(() => [ID], { nullable: true })
-  deletedById_in?: string[];
+  authorityId_startsWith?: string;
 
   @TypeGraphQLField({ nullable: true })
-  wallet_eq?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  wallet_contains?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  wallet_startsWith?: string;
-
-  @TypeGraphQLField({ nullable: true })
-  wallet_endsWith?: string;
+  authorityId_endsWith?: string;
 
   @TypeGraphQLField(() => [String], { nullable: true })
-  wallet_in?: string[];
+  authorityId_in?: string[];
 
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_eq?: string;
+  @TypeGraphQLField({ nullable: true })
+  validator_eq?: string;
 
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gt?: string;
+  @TypeGraphQLField({ nullable: true })
+  validator_contains?: string;
 
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_gte?: string;
+  @TypeGraphQLField({ nullable: true })
+  validator_startsWith?: string;
 
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lt?: string;
+  @TypeGraphQLField({ nullable: true })
+  validator_endsWith?: string;
 
-  @TypeGraphQLField(() => BigInt, { nullable: true })
-  balance_lte?: string;
+  @TypeGraphQLField(() => [String], { nullable: true })
+  validator_in?: string[];
 
-  @TypeGraphQLField(() => [BigInt], { nullable: true })
-  balance_in?: string[];
+  @TypeGraphQLField({ nullable: true })
+  peerId_eq?: string;
 
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  historicalBalances_none?: HistoricalBalanceWhereInput;
+  @TypeGraphQLField({ nullable: true })
+  peerId_contains?: string;
 
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  historicalBalances_some?: HistoricalBalanceWhereInput;
+  @TypeGraphQLField({ nullable: true })
+  peerId_startsWith?: string;
 
-  @TypeGraphQLField(() => HistoricalBalanceWhereInput, { nullable: true })
-  historicalBalances_every?: HistoricalBalanceWhereInput;
+  @TypeGraphQLField({ nullable: true })
+  peerId_endsWith?: string;
 
-  @TypeGraphQLField(() => AccountWhereInput, { nullable: true })
-  AND?: [AccountWhereInput];
+  @TypeGraphQLField(() => [String], { nullable: true })
+  peerId_in?: string[];
 
-  @TypeGraphQLField(() => AccountWhereInput, { nullable: true })
-  OR?: [AccountWhereInput];
+  @TypeGraphQLField({ nullable: true })
+  networkAddress_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  networkAddress_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  networkAddress_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  networkAddress_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  networkAddress_in?: string[];
+
+  @TypeGraphQLField(() => Boolean, { nullable: true })
+  multiAddress_eq?: Boolean;
+
+  @TypeGraphQLField(() => [Boolean], { nullable: true })
+  multiAddress_in?: Boolean[];
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  ipv4_in?: string[];
+
+  @TypeGraphQLField(() => HeartbeatWhereInput, { nullable: true })
+  AND?: [HeartbeatWhereInput];
+
+  @TypeGraphQLField(() => HeartbeatWhereInput, { nullable: true })
+  OR?: [HeartbeatWhereInput];
 }
 
 @TypeGraphQLInputType()
-export class AccountWhereUniqueInput {
+export class HeartbeatWhereUniqueInput {
   @TypeGraphQLField(() => ID)
   id?: string;
 }
 
 @TypeGraphQLInputType()
-export class AccountCreateInput {
-  @TypeGraphQLField()
-  wallet!: string;
+export class HeartbeatCreateInput {
+  @TypeGraphQLField({ nullable: true })
+  blockNumber?: string;
 
-  @TypeGraphQLField()
-  balance!: string;
+  @TypeGraphQLField({ nullable: true })
+  authorityId?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  validator?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  peerId?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  networkAddress?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  multiAddress?: boolean;
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4?: string;
 }
 
 @TypeGraphQLInputType()
-export class AccountUpdateInput {
+export class HeartbeatUpdateInput {
   @TypeGraphQLField({ nullable: true })
-  wallet?: string;
+  blockNumber?: string;
 
   @TypeGraphQLField({ nullable: true })
-  balance?: string;
+  authorityId?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  validator?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  peerId?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  networkAddress?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  multiAddress?: boolean;
+
+  @TypeGraphQLField({ nullable: true })
+  ipv4?: string;
 }
 
 @ArgsType()
-export class AccountWhereArgs extends PaginationArgs {
-  @TypeGraphQLField(() => AccountWhereInput, { nullable: true })
-  where?: AccountWhereInput;
+export class HeartbeatWhereArgs extends PaginationArgs {
+  @TypeGraphQLField(() => HeartbeatWhereInput, { nullable: true })
+  where?: HeartbeatWhereInput;
 
-  @TypeGraphQLField(() => AccountOrderByEnum, { nullable: true })
-  orderBy?: AccountOrderByEnum[];
+  @TypeGraphQLField(() => HeartbeatOrderByEnum, { nullable: true })
+  orderBy?: HeartbeatOrderByEnum[];
 }
 
 @ArgsType()
-export class AccountCreateManyArgs {
-  @TypeGraphQLField(() => [AccountCreateInput])
-  data!: AccountCreateInput[];
+export class HeartbeatCreateManyArgs {
+  @TypeGraphQLField(() => [HeartbeatCreateInput])
+  data!: HeartbeatCreateInput[];
 }
 
 @ArgsType()
-export class AccountUpdateArgs {
-  @TypeGraphQLField() data!: AccountUpdateInput;
-  @TypeGraphQLField() where!: AccountWhereUniqueInput;
+export class HeartbeatUpdateArgs {
+  @TypeGraphQLField() data!: HeartbeatUpdateInput;
+  @TypeGraphQLField() where!: HeartbeatWhereUniqueInput;
+}
+
+export enum LastHeartbeatOrderByEnum {
+  createdAt_ASC = "createdAt_ASC",
+  createdAt_DESC = "createdAt_DESC",
+
+  updatedAt_ASC = "updatedAt_ASC",
+  updatedAt_DESC = "updatedAt_DESC",
+
+  deletedAt_ASC = "deletedAt_ASC",
+  deletedAt_DESC = "deletedAt_DESC",
+
+  heartbeatId_ASC = "heartbeatId_ASC",
+  heartbeatId_DESC = "heartbeatId_DESC",
+}
+
+registerEnumType(LastHeartbeatOrderByEnum, {
+  name: "LastHeartbeatOrderByInput",
+});
+
+@TypeGraphQLInputType()
+export class LastHeartbeatWhereInput {
+  @TypeGraphQLField(() => ID, { nullable: true })
+  id_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  id_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  createdAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  createdById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  createdById_in?: string[];
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  updatedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  updatedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  updatedById_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  deletedAt_all?: Boolean;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_eq?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_lte?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gt?: Date;
+
+  @TypeGraphQLField(() => DateTime, { nullable: true })
+  deletedAt_gte?: Date;
+
+  @TypeGraphQLField(() => ID, { nullable: true })
+  deletedById_eq?: string;
+
+  @TypeGraphQLField(() => [ID], { nullable: true })
+  deletedById_in?: string[];
+
+  @TypeGraphQLField({ nullable: true })
+  heartbeatId_eq?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  heartbeatId_contains?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  heartbeatId_startsWith?: string;
+
+  @TypeGraphQLField({ nullable: true })
+  heartbeatId_endsWith?: string;
+
+  @TypeGraphQLField(() => [String], { nullable: true })
+  heartbeatId_in?: string[];
+
+  @TypeGraphQLField(() => LastHeartbeatWhereInput, { nullable: true })
+  AND?: [LastHeartbeatWhereInput];
+
+  @TypeGraphQLField(() => LastHeartbeatWhereInput, { nullable: true })
+  OR?: [LastHeartbeatWhereInput];
+}
+
+@TypeGraphQLInputType()
+export class LastHeartbeatWhereUniqueInput {
+  @TypeGraphQLField(() => ID)
+  id?: string;
+}
+
+@TypeGraphQLInputType()
+export class LastHeartbeatCreateInput {
+  @TypeGraphQLField()
+  heartbeatId!: string;
+}
+
+@TypeGraphQLInputType()
+export class LastHeartbeatUpdateInput {
+  @TypeGraphQLField({ nullable: true })
+  heartbeatId?: string;
+}
+
+@ArgsType()
+export class LastHeartbeatWhereArgs extends PaginationArgs {
+  @TypeGraphQLField(() => LastHeartbeatWhereInput, { nullable: true })
+  where?: LastHeartbeatWhereInput;
+
+  @TypeGraphQLField(() => LastHeartbeatOrderByEnum, { nullable: true })
+  orderBy?: LastHeartbeatOrderByEnum[];
+}
+
+@ArgsType()
+export class LastHeartbeatCreateManyArgs {
+  @TypeGraphQLField(() => [LastHeartbeatCreateInput])
+  data!: LastHeartbeatCreateInput[];
+}
+
+@ArgsType()
+export class LastHeartbeatUpdateArgs {
+  @TypeGraphQLField() data!: LastHeartbeatUpdateInput;
+  @TypeGraphQLField() where!: LastHeartbeatWhereUniqueInput;
 }

@@ -6,13 +6,12 @@ import { IResolvers } from 'graphql-tools/dist/Interfaces'
 import * as schema from  './schema.graphql'
 
 export interface Query {
-    accounts: <T = Array<Account>>(args: { offset?: Int | null, limit?: Int | null, where?: AccountWhereInput | null, orderBy?: Array<AccountOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    accountByUniqueInput: <T = Account | null>(args: { where: AccountWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    accountsConnection: <T = AccountConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: AccountWhereInput | null, orderBy?: Array<AccountOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    historicalBalances: <T = Array<HistoricalBalance>>(args: { offset?: Int | null, limit?: Int | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    historicalBalanceByUniqueInput: <T = HistoricalBalance | null>(args: { where: HistoricalBalanceWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
-    historicalBalancesConnection: <T = HistoricalBalanceConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: HistoricalBalanceWhereInput | null, orderBy?: Array<HistoricalBalanceOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    hello: <T = Hello>(args?: {}, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    heartbeats: <T = Array<Heartbeat>>(args: { offset?: Int | null, limit?: Int | null, where?: HeartbeatWhereInput | null, orderBy?: Array<HeartbeatOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    heartbeatByUniqueInput: <T = Heartbeat | null>(args: { where: HeartbeatWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    heartbeatsConnection: <T = HeartbeatConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: HeartbeatWhereInput | null, orderBy?: Array<HeartbeatOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    lastHeartbeats: <T = Array<LastHeartbeat>>(args: { offset?: Int | null, limit?: Int | null, where?: LastHeartbeatWhereInput | null, orderBy?: Array<LastHeartbeatOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    lastHeartbeatByUniqueInput: <T = LastHeartbeat | null>(args: { where: LastHeartbeatWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T | null> ,
+    lastHeartbeatsConnection: <T = LastHeartbeatConnection>(args: { first?: Int | null, after?: String | null, last?: Int | null, before?: String | null, where?: LastHeartbeatWhereInput | null, orderBy?: Array<LastHeartbeatOrderByInput> | null }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {}
@@ -45,86 +44,35 @@ export const Binding = makeBindingClass<BindingConstructor<Binding>>({ schema: s
  * Types
 */
 
-export type AccountOrderByInput =   'createdAt_ASC' |
+export type HeartbeatOrderByInput =   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'deletedAt_ASC' |
   'deletedAt_DESC' |
-  'wallet_ASC' |
-  'wallet_DESC' |
-  'balance_ASC' |
-  'balance_DESC'
+  'blockNumber_ASC' |
+  'blockNumber_DESC' |
+  'authorityId_ASC' |
+  'authorityId_DESC' |
+  'validator_ASC' |
+  'validator_DESC' |
+  'peerId_ASC' |
+  'peerId_DESC' |
+  'networkAddress_ASC' |
+  'networkAddress_DESC' |
+  'multiAddress_ASC' |
+  'multiAddress_DESC' |
+  'ipv4_ASC' |
+  'ipv4_DESC'
 
-export type HistoricalBalanceOrderByInput =   'createdAt_ASC' |
+export type LastHeartbeatOrderByInput =   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'deletedAt_ASC' |
   'deletedAt_DESC' |
-  'account_ASC' |
-  'account_DESC' |
-  'balance_ASC' |
-  'balance_DESC' |
-  'timestamp_ASC' |
-  'timestamp_DESC'
-
-export interface AccountCreateInput {
-  wallet: String
-  balance: String
-}
-
-export interface AccountUpdateInput {
-  wallet?: String | null
-  balance?: String | null
-}
-
-export interface AccountWhereInput {
-  id_eq?: ID_Input | null
-  id_in?: ID_Output[] | ID_Output | null
-  createdAt_eq?: DateTime | null
-  createdAt_lt?: DateTime | null
-  createdAt_lte?: DateTime | null
-  createdAt_gt?: DateTime | null
-  createdAt_gte?: DateTime | null
-  createdById_eq?: ID_Input | null
-  createdById_in?: ID_Output[] | ID_Output | null
-  updatedAt_eq?: DateTime | null
-  updatedAt_lt?: DateTime | null
-  updatedAt_lte?: DateTime | null
-  updatedAt_gt?: DateTime | null
-  updatedAt_gte?: DateTime | null
-  updatedById_eq?: ID_Input | null
-  updatedById_in?: ID_Output[] | ID_Output | null
-  deletedAt_all?: Boolean | null
-  deletedAt_eq?: DateTime | null
-  deletedAt_lt?: DateTime | null
-  deletedAt_lte?: DateTime | null
-  deletedAt_gt?: DateTime | null
-  deletedAt_gte?: DateTime | null
-  deletedById_eq?: ID_Input | null
-  deletedById_in?: ID_Output[] | ID_Output | null
-  wallet_eq?: String | null
-  wallet_contains?: String | null
-  wallet_startsWith?: String | null
-  wallet_endsWith?: String | null
-  wallet_in?: String[] | String | null
-  balance_eq?: BigInt | null
-  balance_gt?: BigInt | null
-  balance_gte?: BigInt | null
-  balance_lt?: BigInt | null
-  balance_lte?: BigInt | null
-  balance_in?: BigInt[] | BigInt | null
-  historicalBalances_none?: HistoricalBalanceWhereInput | null
-  historicalBalances_some?: HistoricalBalanceWhereInput | null
-  historicalBalances_every?: HistoricalBalanceWhereInput | null
-  AND?: AccountWhereInput[] | AccountWhereInput | null
-  OR?: AccountWhereInput[] | AccountWhereInput | null
-}
-
-export interface AccountWhereUniqueInput {
-  id: ID_Output
-}
+  'heartbeatId_ASC' |
+  'heartbeatId_DESC'
 
 export interface BaseWhereInput {
   id_eq?: String | null
@@ -150,19 +98,27 @@ export interface BaseWhereInput {
   deletedById_eq?: String | null
 }
 
-export interface HistoricalBalanceCreateInput {
-  account: ID_Output
-  balance: String
-  timestamp: String
+export interface HeartbeatCreateInput {
+  blockNumber?: String | null
+  authorityId?: String | null
+  validator?: String | null
+  peerId?: String | null
+  networkAddress?: String | null
+  multiAddress?: Boolean | null
+  ipv4?: String | null
 }
 
-export interface HistoricalBalanceUpdateInput {
-  account?: ID_Input | null
-  balance?: String | null
-  timestamp?: String | null
+export interface HeartbeatUpdateInput {
+  blockNumber?: String | null
+  authorityId?: String | null
+  validator?: String | null
+  peerId?: String | null
+  networkAddress?: String | null
+  multiAddress?: Boolean | null
+  ipv4?: String | null
 }
 
-export interface HistoricalBalanceWhereInput {
+export interface HeartbeatWhereInput {
   id_eq?: ID_Input | null
   id_in?: ID_Output[] | ID_Output | null
   createdAt_eq?: DateTime | null
@@ -187,24 +143,90 @@ export interface HistoricalBalanceWhereInput {
   deletedAt_gte?: DateTime | null
   deletedById_eq?: ID_Input | null
   deletedById_in?: ID_Output[] | ID_Output | null
-  balance_eq?: BigInt | null
-  balance_gt?: BigInt | null
-  balance_gte?: BigInt | null
-  balance_lt?: BigInt | null
-  balance_lte?: BigInt | null
-  balance_in?: BigInt[] | BigInt | null
-  timestamp_eq?: BigInt | null
-  timestamp_gt?: BigInt | null
-  timestamp_gte?: BigInt | null
-  timestamp_lt?: BigInt | null
-  timestamp_lte?: BigInt | null
-  timestamp_in?: BigInt[] | BigInt | null
-  account?: AccountWhereInput | null
-  AND?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
-  OR?: HistoricalBalanceWhereInput[] | HistoricalBalanceWhereInput | null
+  blockNumber_eq?: BigInt | null
+  blockNumber_gt?: BigInt | null
+  blockNumber_gte?: BigInt | null
+  blockNumber_lt?: BigInt | null
+  blockNumber_lte?: BigInt | null
+  blockNumber_in?: BigInt[] | BigInt | null
+  authorityId_eq?: String | null
+  authorityId_contains?: String | null
+  authorityId_startsWith?: String | null
+  authorityId_endsWith?: String | null
+  authorityId_in?: String[] | String | null
+  validator_eq?: String | null
+  validator_contains?: String | null
+  validator_startsWith?: String | null
+  validator_endsWith?: String | null
+  validator_in?: String[] | String | null
+  peerId_eq?: String | null
+  peerId_contains?: String | null
+  peerId_startsWith?: String | null
+  peerId_endsWith?: String | null
+  peerId_in?: String[] | String | null
+  networkAddress_eq?: String | null
+  networkAddress_contains?: String | null
+  networkAddress_startsWith?: String | null
+  networkAddress_endsWith?: String | null
+  networkAddress_in?: String[] | String | null
+  multiAddress_eq?: Boolean | null
+  multiAddress_in?: Boolean[] | Boolean | null
+  ipv4_eq?: String | null
+  ipv4_contains?: String | null
+  ipv4_startsWith?: String | null
+  ipv4_endsWith?: String | null
+  ipv4_in?: String[] | String | null
+  AND?: HeartbeatWhereInput[] | HeartbeatWhereInput | null
+  OR?: HeartbeatWhereInput[] | HeartbeatWhereInput | null
 }
 
-export interface HistoricalBalanceWhereUniqueInput {
+export interface HeartbeatWhereUniqueInput {
+  id: ID_Output
+}
+
+export interface LastHeartbeatCreateInput {
+  heartbeatId: String
+}
+
+export interface LastHeartbeatUpdateInput {
+  heartbeatId?: String | null
+}
+
+export interface LastHeartbeatWhereInput {
+  id_eq?: ID_Input | null
+  id_in?: ID_Output[] | ID_Output | null
+  createdAt_eq?: DateTime | null
+  createdAt_lt?: DateTime | null
+  createdAt_lte?: DateTime | null
+  createdAt_gt?: DateTime | null
+  createdAt_gte?: DateTime | null
+  createdById_eq?: ID_Input | null
+  createdById_in?: ID_Output[] | ID_Output | null
+  updatedAt_eq?: DateTime | null
+  updatedAt_lt?: DateTime | null
+  updatedAt_lte?: DateTime | null
+  updatedAt_gt?: DateTime | null
+  updatedAt_gte?: DateTime | null
+  updatedById_eq?: ID_Input | null
+  updatedById_in?: ID_Output[] | ID_Output | null
+  deletedAt_all?: Boolean | null
+  deletedAt_eq?: DateTime | null
+  deletedAt_lt?: DateTime | null
+  deletedAt_lte?: DateTime | null
+  deletedAt_gt?: DateTime | null
+  deletedAt_gte?: DateTime | null
+  deletedById_eq?: ID_Input | null
+  deletedById_in?: ID_Output[] | ID_Output | null
+  heartbeatId_eq?: String | null
+  heartbeatId_contains?: String | null
+  heartbeatId_startsWith?: String | null
+  heartbeatId_endsWith?: String | null
+  heartbeatId_in?: String[] | String | null
+  AND?: LastHeartbeatWhereInput[] | LastHeartbeatWhereInput | null
+  OR?: LastHeartbeatWhereInput[] | LastHeartbeatWhereInput | null
+}
+
+export interface LastHeartbeatWhereUniqueInput {
   id: ID_Output
 }
 
@@ -221,31 +243,6 @@ export interface BaseGraphQLObject {
 
 export interface DeleteResponse {
   id: ID_Output
-}
-
-export interface Account extends BaseGraphQLObject {
-  id: ID_Output
-  createdAt: DateTime
-  createdById: String
-  updatedAt?: DateTime | null
-  updatedById?: String | null
-  deletedAt?: DateTime | null
-  deletedById?: String | null
-  version: Int
-  wallet: String
-  balance: BigInt
-  historicalBalances: Array<HistoricalBalance>
-}
-
-export interface AccountConnection {
-  totalCount: Int
-  edges: Array<AccountEdge>
-  pageInfo: PageInfo
-}
-
-export interface AccountEdge {
-  node: Account
-  cursor: String
 }
 
 export interface BaseModel extends BaseGraphQLObject {
@@ -270,11 +267,7 @@ export interface BaseModelUUID extends BaseGraphQLObject {
   version: Int
 }
 
-export interface Hello {
-  greeting: String
-}
-
-export interface HistoricalBalance extends BaseGraphQLObject {
+export interface Heartbeat extends BaseGraphQLObject {
   id: ID_Output
   createdAt: DateTime
   createdById: String
@@ -283,20 +276,46 @@ export interface HistoricalBalance extends BaseGraphQLObject {
   deletedAt?: DateTime | null
   deletedById?: String | null
   version: Int
-  account: Account
-  accountId: String
-  balance: BigInt
-  timestamp: BigInt
+  blockNumber?: BigInt | null
+  authorityId?: String | null
+  validator?: String | null
+  peerId?: String | null
+  networkAddress?: String | null
+  multiAddress?: Boolean | null
+  ipv4?: String | null
 }
 
-export interface HistoricalBalanceConnection {
+export interface HeartbeatConnection {
   totalCount: Int
-  edges: Array<HistoricalBalanceEdge>
+  edges: Array<HeartbeatEdge>
   pageInfo: PageInfo
 }
 
-export interface HistoricalBalanceEdge {
-  node: HistoricalBalance
+export interface HeartbeatEdge {
+  node: Heartbeat
+  cursor: String
+}
+
+export interface LastHeartbeat extends BaseGraphQLObject {
+  id: ID_Output
+  createdAt: DateTime
+  createdById: String
+  updatedAt?: DateTime | null
+  updatedById?: String | null
+  deletedAt?: DateTime | null
+  deletedById?: String | null
+  version: Int
+  heartbeatId: String
+}
+
+export interface LastHeartbeatConnection {
+  totalCount: Int
+  edges: Array<LastHeartbeatEdge>
+  pageInfo: PageInfo
+}
+
+export interface LastHeartbeatEdge {
+  node: LastHeartbeat
   cursor: String
 }
 

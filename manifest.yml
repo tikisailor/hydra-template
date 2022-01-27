@@ -5,9 +5,11 @@ hydraVersion: ">=4"
 
 typegen:
   metadata:
-    source: wss://kusama-rpc.polkadot.io/
+    source: wss://rpc.polkadot.io/
   events:
-    - balances.Transfer
+    - imOnline.HeartbeatReceived
+    - staking.PayoutStarted
+    - staking.Rewarded
   calls:
     - timestamp.set
   outDir: chain
@@ -15,8 +17,14 @@ typegen:
 mappings:
   mappingsModule: mappings
   eventHandlers:
-    - event: balances.Transfer
-      handler: balancesTransfer
+    - event: imOnline.HeartbeatReceived
+      handler: handleHeartbeat
+    - event: staking.PayoutStarted
+      handler: handlePayout
+    - event: staking.Rewarded
+      handler: hanbleReward
   extrinsicHandlers:
+    - extrinsic: timestamp.set
+      handler: handleTimestampSet
   preBlockHooks:
   postBlockHooks:

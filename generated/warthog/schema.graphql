@@ -1,98 +1,3 @@
-type Account implements BaseGraphQLObject {
-  id: ID!
-  createdAt: DateTime!
-  createdById: String!
-  updatedAt: DateTime
-  updatedById: String
-  deletedAt: DateTime
-  deletedById: String
-  version: Int!
-  wallet: String!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!]!
-}
-
-type AccountConnection {
-  totalCount: Int!
-  edges: [AccountEdge!]!
-  pageInfo: PageInfo!
-}
-
-input AccountCreateInput {
-  wallet: String!
-  balance: String!
-}
-
-type AccountEdge {
-  node: Account!
-  cursor: String!
-}
-
-enum AccountOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  wallet_ASC
-  wallet_DESC
-  balance_ASC
-  balance_DESC
-}
-
-input AccountUpdateInput {
-  wallet: String
-  balance: String
-}
-
-input AccountWhereInput {
-  id_eq: ID
-  id_in: [ID!]
-  createdAt_eq: DateTime
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  createdById_eq: ID
-  createdById_in: [ID!]
-  updatedAt_eq: DateTime
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  updatedById_eq: ID
-  updatedById_in: [ID!]
-  deletedAt_all: Boolean
-  deletedAt_eq: DateTime
-  deletedAt_lt: DateTime
-  deletedAt_lte: DateTime
-  deletedAt_gt: DateTime
-  deletedAt_gte: DateTime
-  deletedById_eq: ID
-  deletedById_in: [ID!]
-  wallet_eq: String
-  wallet_contains: String
-  wallet_startsWith: String
-  wallet_endsWith: String
-  wallet_in: [String!]
-  balance_eq: BigInt
-  balance_gt: BigInt
-  balance_gte: BigInt
-  balance_lt: BigInt
-  balance_lte: BigInt
-  balance_in: [BigInt!]
-  historicalBalances_none: HistoricalBalanceWhereInput
-  historicalBalances_some: HistoricalBalanceWhereInput
-  historicalBalances_every: HistoricalBalanceWhereInput
-  AND: [AccountWhereInput!]
-  OR: [AccountWhereInput!]
-}
-
-input AccountWhereUniqueInput {
-  id: ID!
-}
-
 interface BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
@@ -162,11 +67,7 @@ interface DeleteResponse {
   id: ID!
 }
 
-type Hello {
-  greeting: String!
-}
-
-type HistoricalBalance implements BaseGraphQLObject {
+type Heartbeat implements BaseGraphQLObject {
   id: ID!
   createdAt: DateTime!
   createdById: String!
@@ -175,51 +76,70 @@ type HistoricalBalance implements BaseGraphQLObject {
   deletedAt: DateTime
   deletedById: String
   version: Int!
-  account: Account!
-  accountId: String!
-  balance: BigInt!
-  timestamp: BigInt!
+  blockNumber: BigInt
+  authorityId: String
+  validator: String
+  peerId: String
+  networkAddress: String
+  multiAddress: Boolean
+  ipv4: String
 }
 
-type HistoricalBalanceConnection {
+type HeartbeatConnection {
   totalCount: Int!
-  edges: [HistoricalBalanceEdge!]!
+  edges: [HeartbeatEdge!]!
   pageInfo: PageInfo!
 }
 
-input HistoricalBalanceCreateInput {
-  account: ID!
-  balance: String!
-  timestamp: String!
+input HeartbeatCreateInput {
+  blockNumber: String
+  authorityId: String
+  validator: String
+  peerId: String
+  networkAddress: String
+  multiAddress: Boolean
+  ipv4: String
 }
 
-type HistoricalBalanceEdge {
-  node: HistoricalBalance!
+type HeartbeatEdge {
+  node: Heartbeat!
   cursor: String!
 }
 
-enum HistoricalBalanceOrderByInput {
+enum HeartbeatOrderByInput {
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
   deletedAt_ASC
   deletedAt_DESC
-  account_ASC
-  account_DESC
-  balance_ASC
-  balance_DESC
-  timestamp_ASC
-  timestamp_DESC
+  blockNumber_ASC
+  blockNumber_DESC
+  authorityId_ASC
+  authorityId_DESC
+  validator_ASC
+  validator_DESC
+  peerId_ASC
+  peerId_DESC
+  networkAddress_ASC
+  networkAddress_DESC
+  multiAddress_ASC
+  multiAddress_DESC
+  ipv4_ASC
+  ipv4_DESC
 }
 
-input HistoricalBalanceUpdateInput {
-  account: ID
-  balance: String
-  timestamp: String
+input HeartbeatUpdateInput {
+  blockNumber: String
+  authorityId: String
+  validator: String
+  peerId: String
+  networkAddress: String
+  multiAddress: Boolean
+  ipv4: String
 }
 
-input HistoricalBalanceWhereInput {
+input HeartbeatWhereInput {
   id_eq: ID
   id_in: [ID!]
   createdAt_eq: DateTime
@@ -244,24 +164,124 @@ input HistoricalBalanceWhereInput {
   deletedAt_gte: DateTime
   deletedById_eq: ID
   deletedById_in: [ID!]
-  balance_eq: BigInt
-  balance_gt: BigInt
-  balance_gte: BigInt
-  balance_lt: BigInt
-  balance_lte: BigInt
-  balance_in: [BigInt!]
-  timestamp_eq: BigInt
-  timestamp_gt: BigInt
-  timestamp_gte: BigInt
-  timestamp_lt: BigInt
-  timestamp_lte: BigInt
-  timestamp_in: [BigInt!]
-  account: AccountWhereInput
-  AND: [HistoricalBalanceWhereInput!]
-  OR: [HistoricalBalanceWhereInput!]
+  blockNumber_eq: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  authorityId_eq: String
+  authorityId_contains: String
+  authorityId_startsWith: String
+  authorityId_endsWith: String
+  authorityId_in: [String!]
+  validator_eq: String
+  validator_contains: String
+  validator_startsWith: String
+  validator_endsWith: String
+  validator_in: [String!]
+  peerId_eq: String
+  peerId_contains: String
+  peerId_startsWith: String
+  peerId_endsWith: String
+  peerId_in: [String!]
+  networkAddress_eq: String
+  networkAddress_contains: String
+  networkAddress_startsWith: String
+  networkAddress_endsWith: String
+  networkAddress_in: [String!]
+  multiAddress_eq: Boolean
+  multiAddress_in: [Boolean!]
+  ipv4_eq: String
+  ipv4_contains: String
+  ipv4_startsWith: String
+  ipv4_endsWith: String
+  ipv4_in: [String!]
+  AND: [HeartbeatWhereInput!]
+  OR: [HeartbeatWhereInput!]
 }
 
-input HistoricalBalanceWhereUniqueInput {
+input HeartbeatWhereUniqueInput {
+  id: ID!
+}
+
+type LastHeartbeat implements BaseGraphQLObject {
+  id: ID!
+  createdAt: DateTime!
+  createdById: String!
+  updatedAt: DateTime
+  updatedById: String
+  deletedAt: DateTime
+  deletedById: String
+  version: Int!
+  heartbeatId: String!
+}
+
+type LastHeartbeatConnection {
+  totalCount: Int!
+  edges: [LastHeartbeatEdge!]!
+  pageInfo: PageInfo!
+}
+
+input LastHeartbeatCreateInput {
+  heartbeatId: String!
+}
+
+type LastHeartbeatEdge {
+  node: LastHeartbeat!
+  cursor: String!
+}
+
+enum LastHeartbeatOrderByInput {
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+  heartbeatId_ASC
+  heartbeatId_DESC
+}
+
+input LastHeartbeatUpdateInput {
+  heartbeatId: String
+}
+
+input LastHeartbeatWhereInput {
+  id_eq: ID
+  id_in: [ID!]
+  createdAt_eq: DateTime
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdById_eq: ID
+  createdById_in: [ID!]
+  updatedAt_eq: DateTime
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  updatedById_eq: ID
+  updatedById_in: [ID!]
+  deletedAt_all: Boolean
+  deletedAt_eq: DateTime
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  deletedById_eq: ID
+  deletedById_in: [ID!]
+  heartbeatId_eq: String
+  heartbeatId_contains: String
+  heartbeatId_startsWith: String
+  heartbeatId_endsWith: String
+  heartbeatId_in: [String!]
+  AND: [LastHeartbeatWhereInput!]
+  OR: [LastHeartbeatWhereInput!]
+}
+
+input LastHeartbeatWhereUniqueInput {
   id: ID!
 }
 
@@ -280,13 +300,12 @@ type ProcessorState {
 }
 
 type Query {
-  accounts(offset: Int, limit: Int = 50, where: AccountWhereInput, orderBy: [AccountOrderByInput!]): [Account!]!
-  accountByUniqueInput(where: AccountWhereUniqueInput!): Account
-  accountsConnection(first: Int, after: String, last: Int, before: String, where: AccountWhereInput, orderBy: [AccountOrderByInput!]): AccountConnection!
-  historicalBalances(offset: Int, limit: Int = 50, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): [HistoricalBalance!]!
-  historicalBalanceByUniqueInput(where: HistoricalBalanceWhereUniqueInput!): HistoricalBalance
-  historicalBalancesConnection(first: Int, after: String, last: Int, before: String, where: HistoricalBalanceWhereInput, orderBy: [HistoricalBalanceOrderByInput!]): HistoricalBalanceConnection!
-  hello: Hello!
+  heartbeats(offset: Int, limit: Int = 50, where: HeartbeatWhereInput, orderBy: [HeartbeatOrderByInput!]): [Heartbeat!]!
+  heartbeatByUniqueInput(where: HeartbeatWhereUniqueInput!): Heartbeat
+  heartbeatsConnection(first: Int, after: String, last: Int, before: String, where: HeartbeatWhereInput, orderBy: [HeartbeatOrderByInput!]): HeartbeatConnection!
+  lastHeartbeats(offset: Int, limit: Int = 50, where: LastHeartbeatWhereInput, orderBy: [LastHeartbeatOrderByInput!]): [LastHeartbeat!]!
+  lastHeartbeatByUniqueInput(where: LastHeartbeatWhereUniqueInput!): LastHeartbeat
+  lastHeartbeatsConnection(first: Int, after: String, last: Int, before: String, where: LastHeartbeatWhereInput, orderBy: [LastHeartbeatOrderByInput!]): LastHeartbeatConnection!
 }
 
 type StandardDeleteResponse {

@@ -1,14 +1,15 @@
-type Account @entity {
-  "Account address"
-  id: ID!
-  wallet: String!
-  balance: BigInt!
-  historicalBalances: [HistoricalBalance!] @derivedFrom(field: "account")
+type Heartbeat @entity {
+    id: ID!
+    blockNumber: BigInt
+    authorityId: String
+    validator: String
+    peerId: String
+    networkAddress: String
+    multiAddress: Boolean
+    ipv4: String
 }
 
-type HistoricalBalance @entity {
-  id: ID!
-  account: Account!
-  balance: BigInt!
-  timestamp: BigInt!
+type LastHeartbeat @entity{
+    id: ID!
+    heartbeatId: String!
 }

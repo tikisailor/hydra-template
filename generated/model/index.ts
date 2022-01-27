@@ -1,4 +1,4 @@
-import { Account } from '../modules/account/account.model';
-export { Account };
-import { HistoricalBalance } from '../modules/historical-balance/historical-balance.model';
-export { HistoricalBalance };
+import { Heartbeat } from '../modules/heartbeat/heartbeat.model';
+export { Heartbeat };
+import { LastHeartbeat } from '../modules/last-heartbeat/last-heartbeat.model';
+export { LastHeartbeat };
