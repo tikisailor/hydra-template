@@ -21,7 +21,8 @@ services:
       - DB_PASS=postgres
       - DB_PORT=5432
       - REDIS_URI=redis://redis:6379/0
-      - BLOCK_HEIGHT=0 # starting block height
+      # Block 6713249 is first block with runtime spec 9090, which introduces staking.PayoutStarted event
+      - BLOCK_HEIGHT=6713249 # starting block height
       - WS_PROVIDER_ENDPOINT_URI=wss://rpc.polkadot.io/
 
     # # If your chain uses custom types you need to provide those

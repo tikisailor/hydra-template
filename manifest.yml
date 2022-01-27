@@ -6,6 +6,7 @@ hydraVersion: ">=4"
 typegen:
   metadata:
     source: wss://rpc.polkadot.io/
+    blockHash: '0xcd3a45b784655d464b4f66e34e59047c5eec409975a435593821c4b99e98928b'
   events:
     - imOnline.HeartbeatReceived
     - staking.PayoutStarted
@@ -22,7 +23,7 @@ mappings:
     - event: staking.PayoutStarted
       handler: handlePayout
     - event: staking.Rewarded
-      handler: hanbleReward
+      handler: handleReward
   extrinsicHandlers:
     - extrinsic: timestamp.set
       handler: handleTimestampSet
